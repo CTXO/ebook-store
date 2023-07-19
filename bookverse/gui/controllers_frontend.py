@@ -3,10 +3,13 @@ from flask import render_template
 from flask import request
 from flask import url_for
 
+from ..controllers.facade import Facade
 from ..database import db_session
 
 app = Flask(__name__)
 
+
+facade = Facade()
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
@@ -26,5 +29,9 @@ def register():
         password = request.form['password']
         password2 = request.form['password2']
 
-        return render_template('signup.html', success="success")
+        signup_response = facade.signup(full_name, email, password, password2)
+        if signup_response.get('success'):
+            return render_template('login.html', success="success")
+        return render_template('signup.html', message=signup_response.get('message'))
+
     return render_template('signup.html')
