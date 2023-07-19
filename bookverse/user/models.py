@@ -10,7 +10,7 @@ class User(Base):
     password_hash = sa.Column(sa.String(50), nullable=False)
     email = sa.Column(sa.String(50), nullable=False, unique=True)
 
-    def __init__(self, name, username, password_hash, email):
+    def __init__(self, name, username, email, password_hash):
         self.name = name
         self.username = username
         self.password_hash = password_hash
