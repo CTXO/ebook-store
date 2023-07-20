@@ -10,38 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
 </head>
 
-<style>
-    .footer-item {
-        color: #5C6576;
-    }
-
-    .column-flex {
-        display: flex !important;
-        flex-direction: column !important;
-    }
-
-    .ui.menu {
-        margin-bottom: 3rem;
-    }
-
-    body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
-    #footer {
-        margin-top: auto;
-    }
-    .ui.footer-divider{
-        margin-bottom: 0;
-    }
-    .ui.grid.footer-grid {
-        margin: 0;
-    }
-</style>
+<style></style>
 <body>
 {% block body %}
     {% block navbar %}
@@ -92,6 +65,7 @@
         </div>
     {% endblock %}
 {% endblock %}
-
 </body>
+{% block script %}
+{% endblock %}
 </html>
