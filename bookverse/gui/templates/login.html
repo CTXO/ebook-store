@@ -26,3 +26,11 @@
     </div>
 
 {% endblock %}
+{% block script %}
+    <script type="module">
+    import {showToast} from "../static/js/utils.mjs";
+    {% if success_message %}
+        showToast("{{ success_message }}", "success");
+    {% endif %}
+    </script>
+{% endblock %}

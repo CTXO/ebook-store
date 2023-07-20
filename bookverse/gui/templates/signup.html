@@ -5,7 +5,6 @@
         <div class="eight wide column">
             <h2 class="ui header centered">Crie sua conta</h2>
             <div class="ui segment">
-                {{ message }}
                 <form class="ui form" method="POST">
                     <div class="field">
                         <label>Nome Completo</label>
@@ -33,4 +32,12 @@
         </div>
 
     </div>
+{% endblock %}
+{% block script %}
+    <script type="module">
+        import {showToast} from "../static/js/utils.mjs";
+        {% if error_message %}
+            showToast("{{ error_message }}", "error");
+        {% endif %}
+    </script>
 {% endblock %}
