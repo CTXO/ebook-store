@@ -11,21 +11,87 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.js"></script>
 </head>
+
+<style>
+    .footer-item {
+        color: #5C6576;
+    }
+
+    .column-flex {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .ui.menu {
+        margin-bottom: 3rem;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #footer {
+        margin-top: auto;
+    }
+    .ui.footer-divider{
+        margin-bottom: 0;
+    }
+    .ui.grid.footer-grid {
+        margin: 0;
+    }
+</style>
 <body>
-    {% block body %}
-        <div id="main-container" class="ui container">
-            {% block content %}
-                <div class="ui stackable grid" id="page-grid">
-                    <div class="sixteen wide column">
-
-                        {% block page %}
-                        {% endblock %}
-
-                    </div>
-                </div>
-            {% endblock %}
+{% block body %}
+    {% block navbar %}
+        <div class="ui large menu">
+            <div class="item"><b>BookVerse </b><i class="book icon"></i></div>
+            <div class="right menu">
+                <a class="item">Login</a>
+                <div class="item">Lista de e-books</div>
+                <div class="item">Cadastro</div>
+            </div>
         </div>
     {% endblock %}
+    <div id="main-container" class="ui container">
+        {% block content %}
+            <div class="ui stackable grid" id="page-grid">
+                <div class="sixteen wide column">
+
+                    {% block page %}
+                    {% endblock %}
+
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+    {% block footer %}
+
+        <div id="footer">
+            <div class="ui divider footer-divider"></div>
+            <div class="ui container">
+                <div class="ui grid footer-grid">
+                    <div class="eight wide column">
+                        <b>BookVerse</b>
+                        <p class="footer-item">Powered by Flask</p>
+                        <p class="footer-item">Copyright 2023 BookVerse</p>
+
+                    </div>
+                    <div class="eight wide column right aligned column-flex">
+                        <a href="/#" class="footer-item">Marketplace</a>
+                        <a href="/#" class="footer-item">Fale Conosco</a>
+                        <a href="/#" class="footer-item">Anuncie seu e-book</a>
+                        <a href="/#" class="footer-item">Termos de Uso</a>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    {% endblock %}
+{% endblock %}
 
 </body>
 </html>
