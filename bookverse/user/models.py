@@ -8,6 +8,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
     cart = db.relationship('Cart', backref='user', uselist=False)
+    library = db.relationship('UserLibrary', backref='user', uselist=False)
 
 
     def __init__(self, name, email, password_hash):

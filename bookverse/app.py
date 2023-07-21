@@ -8,6 +8,7 @@ def create_app():
     from .user.models import User
     from .ebook.models import Ebook
     from .cart.models import Cart
+    from .library.models import UserLibrary
 
     from .gui.controllers_frontend import controller
     app = Flask(__name__, template_folder='./gui/templates', static_folder='./gui/static')

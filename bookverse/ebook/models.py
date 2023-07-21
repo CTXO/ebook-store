@@ -9,6 +9,8 @@ class Ebook(db.Model):
     file_path = db.Column(db.String(255))
     cover_path = db.Column(db.String(255))
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'))
+    library_id = db.Column(db.Integer, db.ForeignKey('user_library.id'))
+    price_cents = db.Column(db.Integer)
 
     def __init__(self, title=None, pages=None, authors=None, year_of_release=None, file_path=None, cover_path=None, cart_id=None):
         self.title = title
