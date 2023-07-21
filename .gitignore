@@ -8,7 +8,6 @@ env/
 venv/
 instance/
 .venv/
-env*
 dist/
 build/
 *.egg
