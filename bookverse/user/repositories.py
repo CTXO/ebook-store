@@ -1,5 +1,5 @@
 from ..user.repo_interface import IUserRepo
-from ..database import db_session
+from ..app import db
 
 from .models import User
 
@@ -7,8 +7,8 @@ from .models import User
 class UserRepoSqlLite(IUserRepo):
     def create(self, name, email, password_hash):
         user = User(name, email, password_hash)
-        db_session.add(user)
-        db_session.commit()
+        db.session.add(user)
+        db.session.commit()
         return user
 
     def update(self, user_id, name, email, password_hash):
@@ -18,7 +18,7 @@ class UserRepoSqlLite(IUserRepo):
         user.name = name
         user.email = email
         user.password_hash = password_hash
-        db_session.commit()
+        db.session.commit()
         return user
 
     def retrieve(self, user_id):
@@ -35,6 +35,6 @@ class UserRepoSqlLite(IUserRepo):
 
     def delete(self, user_id):
         user = User.query.filter_by(id=user_id).first()
-        db_session.delete(user)
-        db_session.commit()
+        db.session.delete(user)
+        db.session.commit()
 

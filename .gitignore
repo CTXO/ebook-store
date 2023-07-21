@@ -6,6 +6,7 @@
 *.pyo
 env/
 venv/
+instance/
 .venv/
 env*
 dist/
