@@ -1,5 +1,6 @@
 from .repositories import UserRepoSqlLite
 
+
 class UserCrud:
     def __init__(self):
         self.repo = UserRepoSqlLite()  # maybe change this to a factory

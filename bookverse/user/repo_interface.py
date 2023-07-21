@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class IUserRepo(ABC):
     @abstractmethod
     def create(self, name, email, password_hash):

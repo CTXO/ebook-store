@@ -1,4 +1,4 @@
-from ..user.repo_interface import IUserRepo
+from .repo_interface import IUserRepo
 from ..app import db
 
 from .models import User
