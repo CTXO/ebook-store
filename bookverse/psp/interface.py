@@ -1,16 +1,14 @@
 from abc import ABC
 from abc import abstractmethod
 
-from .facade import Facade
+from ..helpers.payment_info import PaymentInfo
 
 
 class IPSP(ABC):
-    facade = Facade()
-
     @abstractmethod
-    def checkout(self):
-        return self.facade.checkout()
+    def checkout(self, payment_info: PaymentInfo):
+        raise NotImplementedError
 
     @abstractmethod
     def payment_succeeded(self):
-        return self.facade.payment_succeeded()
+        raise NotImplementedError

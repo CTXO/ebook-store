@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from .config import configs
 db = SQLAlchemy()
 
 
@@ -15,10 +16,8 @@ def create_app():
     app.secret_key = b'dfoahioadsl2342/*//34382ldslkj#$%$#$%$#%$#%490'
 
     app.register_blueprint(controller)
+    app.config.update(configs)
 
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bookverse.db'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     migrate = Migrate(app, db, render_as_batch=True)
     return app
