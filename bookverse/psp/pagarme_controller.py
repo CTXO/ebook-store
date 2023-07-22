@@ -57,6 +57,7 @@ class PagarmeController:
             code=f'{payment_info.user_id}-{str(payment_info.ebook_ids)}',
             metadata={
                 'ebook_ids': json.dumps(payment_info.ebook_ids),
+                'user_id': payment_info.user_id,
             }
         )
 
@@ -66,5 +67,8 @@ class PagarmeController:
             return {'success': False, 'message': e.message}
         return {'success': True, 'message': 'Pagamento efetuado com sucesso'}
 
-    def payment_succeeded(self):
+    def payment_succeeded(self, user_id: int, ebook_ids: list[int]):
+        print(f'{user_id=}')
+        print(f'{ebook_ids=}')
         pass
+

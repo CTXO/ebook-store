@@ -9,6 +9,6 @@ class PSPFacade(IPSP):
     def checkout(self, payment_info: PaymentInfo):
         return self.controller.checkout(payment_info)
 
-    def payment_succeeded(self):
-        return self.controller.payment_succeeded()
+    def payment_succeeded(self, user_id: int, ebook_ids: list[int]):
+        return self.controller.payment_succeeded(user_id=user_id, ebook_ids=ebook_ids)
 

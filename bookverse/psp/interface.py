@@ -10,5 +10,5 @@ class IPSP(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def payment_succeeded(self):
+    def payment_succeeded(self, user_id, ebook_ids):
         raise NotImplementedError
