@@ -1,9 +1,10 @@
 from .repositories import UserRepoSqlLite
+from .repositories import IUserRepo
 
 
 class UserCrud:
     def __init__(self):
-        self.repo = UserRepoSqlLite()  # maybe change this to a factory
+        self.repo: IUserRepo = UserRepoSqlLite()  # maybe change this to a factory
 
     def create(self, name, email, password_hash):
         return self.repo.create(name, email, password_hash)
