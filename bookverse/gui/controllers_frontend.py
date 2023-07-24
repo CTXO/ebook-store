@@ -14,6 +14,13 @@ facade = Facade()
 controller = Blueprint('controller', __name__)
 
 
+def requires_login(func):
+    def wrapper():
+        if 'userid' not in session:
+            return redirect(url_for('controller.login'))
+        return func()
+    return wrapper
+
 @controller.get('/login')
 def login():
     return render_template('login.html')
@@ -21,14 +28,18 @@ def login():
 @controller.post('/login')
 def login_post():
     # login code goes here
+    next_url = request.args.get('next')
     email = request.form['email']
     password = request.form['password']
     login_response = facade.login(email, password)
     if login_response.get('success'):
         session['login_success_message'] = "Login feito com sucesso"
-        request.session['userid'] = login_response.get('user').id
-        return redirect(url_for('controller.profile'))
+        session['userid'] = login_response.get('user').id
+        if next_url:
+            return redirect(next_url)
+        return redirect(url_for('controller.login'))
     return render_template('login.html', error_message=login_response.get('message'))
+
 
 @controller.get('/register')
 def register_get():
@@ -51,6 +62,7 @@ def register_post():
 
 
 @controller.route('/checkout', methods=['GET', 'POST'])
+@requires_login
 def checkout():
     total_price_cents = 1000  # TODO
     ebook_ids = [1, 2, 3]

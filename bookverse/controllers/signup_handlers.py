@@ -62,7 +62,7 @@ class UserCreationHandler(IHandler):
     next_handler = CartCreationHandler()
 
     def handle(self, request: HandlerRequest) -> HandlerResponse:
-        new_user = request.user_crud.create(request.name, request.email, request.password)
+        new_user = request.user_crud.create(request.name, request.email, request.password_hash)
         if not new_user:
             return {"success": False, "message": "Erro ao criar usuário", "user": None}
         request.user = new_user

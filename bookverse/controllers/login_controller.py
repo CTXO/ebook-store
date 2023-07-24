@@ -15,8 +15,7 @@ class LoginController:
         existing_user = self.user_crud.retrieve_by_email(email)
         if not existing_user:
             return {"success": False, "message": "Email não cadastrado"}
-        password_hash = generate_password_hash(password)
-        if(existing_user.password_hash != password_hash):
+        if not check_password_hash(existing_user.password_hash, password):
             return {"success": False, "message": "Senha incorreta"}
 
         return {"success": True, "message": None, "user": existing_user}
