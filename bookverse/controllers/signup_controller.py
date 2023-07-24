@@ -14,9 +14,10 @@ class SignupController:
         self.user_crud = UserCrud()
         self.cart_crud = CartCrud()
         self.library_crud = LibraryCrud()
+        self.signup_handler = SignupHandler()
 
     def signup(self, full_name, email, password, password2) -> HandlerResponse:
         handler_request = HandlerRequest(name=full_name, email=email, password=password, password2=password2,
                                          user_crud=self.user_crud, cart_crud=self.cart_crud, library_crud=self.library_crud)
-        signup_response = SignupHandler().handle(handler_request)
+        signup_response = self.signup_handler.handle(handler_request)
         return signup_response

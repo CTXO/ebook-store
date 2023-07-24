@@ -12,6 +12,7 @@ from pagarmecoreapi.pagarmecoreapi_client import PagarmecoreapiClient
 from ..config import configs
 from ..helpers.payment_info import PaymentInfo
 
+
 class PagarmeAdapter:
     def __init__(self):
         self.pagarme_api_key = configs.get('PAGARME_API_KEY')
