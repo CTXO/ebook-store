@@ -4,6 +4,7 @@ from flask import request
 from flask import redirect
 from flask import url_for
 from flask import session
+import sys
 
 from ..controllers.facade import Facade
 
@@ -12,13 +13,21 @@ facade = Facade()
 controller = Blueprint('controller', __name__)
 
 
-@controller.route('/login')
+@controller.get('/login')
 def login():
-    message = session.get('login_success_message')
-    if message:
-        del session['login_success_message']
-    return render_template('login.html', success_message=message)
+    return render_template('login.html')
 
+@controller.post('/login')
+def login_post():
+    # login code goes here
+    email = request.form['email']
+    password = request.form['password']
+    login_response = facade.login(email, password)
+    if login_response.get('success'):
+        session['login_success_message'] = "Login feito com sucesso"
+        request.session['userid'] = login_response.get('user').id
+        return redirect(url_for('controller.profile'))
+    return render_template('login.html', error_message=login_response.get('message'))
 
 @controller.get('/register')
 def register_get():
@@ -38,3 +47,4 @@ def register_post():
         return redirect(url_for('controller.login'))
 
     return render_template('signup.html', error_message=signup_response.get('message'))
+
