@@ -1,15 +1,8 @@
 import json
-from typing import TypedDict
 
-from pagarmecoreapi.models.create_order_request import CreateOrderRequest
-from pagarmecoreapi.models.create_order_item_request import CreateOrderItemRequest
-from pagarmecoreapi.models.get_order_response import GetOrderResponse
-from pagarmecoreapi.models.create_payment_request import CreatePaymentRequest
-from pagarmecoreapi.models.create_pix_payment_request import CreatePixPaymentRequest
 from pagarmecoreapi.exceptions.error_exception import ErrorException
-from pagarmecoreapi.models.create_boleto_payment_request import CreateBoletoPaymentRequest
-from pagarmecoreapi.pagarmecoreapi_client import PagarmecoreapiClient
 
+from ..library.library_crud import LibraryCrud
 from .interface import IPSP
 from .pagarme_adapter import PagarmeAdapter
 from ..helpers.payment_info import PaymentInfo
@@ -18,6 +11,7 @@ from ..helpers.payment_info import PaymentInfo
 class PagarmeController(IPSP):
     def __init__(self):
         self.adapter = PagarmeAdapter()
+        self.library_crud = LibraryCrud()
 
     def checkout(self, payment_info: PaymentInfo):
         try:
@@ -33,6 +27,8 @@ class PagarmeController(IPSP):
         metadata = webhook_data.get('data').get('metadata')
         ebook_ids = json.loads(metadata.get('ebook_ids'))
         user_id = metadata.get('user_id')
+        for ebook_id in ebook_ids:
+            self.library_crud.add_to_library(user_id, ebook_id)
         return {'status': 'ok'}
 
 
