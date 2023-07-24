@@ -10,16 +10,12 @@ from pagarmecoreapi.exceptions.error_exception import ErrorException
 from pagarmecoreapi.models.create_boleto_payment_request import CreateBoletoPaymentRequest
 from pagarmecoreapi.pagarmecoreapi_client import PagarmecoreapiClient
 
+from .interface import IPSP
 from .pagarme_adapter import PagarmeAdapter
 from ..helpers.payment_info import PaymentInfo
 
 
-class CheckoutResponse(TypedDict):
-    success: bool
-    message: str
-
-
-class PagarmeController:
+class PagarmeController(IPSP):
     def __init__(self):
         self.adapter = PagarmeAdapter()
 
@@ -30,8 +26,13 @@ class PagarmeController:
             return {'success': False, 'message': e.message}
         return {'success': True, 'message': 'Pagamento efetuado com sucesso'}
 
-    def payment_succeeded(self, user_id: int, ebook_ids: list[int]):
-        print(f'{user_id=}')
-        print(f'{ebook_ids=}')
-        pass
+    def get_webhook_data(self, webhook_request) -> dict:
+        return json.loads(webhook_request.data)
+
+    def payment_succeeded(self, webhook_data: dict):
+        metadata = webhook_data.get('data').get('metadata')
+        ebook_ids = json.loads(metadata.get('ebook_ids'))
+        user_id = metadata.get('user_id')
+        return {'status': 'ok'}
+
 

@@ -10,5 +10,10 @@ class IPSP(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def payment_succeeded(self, user_id, ebook_ids):
+    def payment_succeeded(self, webhook_data):
         raise NotImplementedError
+
+    @abstractmethod
+    def get_webhook_data(self, webhook_request):
+        raise NotImplementedError
+

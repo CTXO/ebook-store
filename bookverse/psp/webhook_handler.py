@@ -3,18 +3,21 @@ import json
 from flask import Blueprint
 from flask import request
 
+from .interface import IPSP
 from .pspfacade import PSPFacade
 
 webhook_handler = Blueprint('webhook_handler', __name__, url_prefix='/webhooks')
 
 
-@webhook_handler.route('/pagarme', methods=['POST'])
-def pagarme_webhook_handler():
-    data = json.loads(request.data)
-    metadata = data.get('data').get('metadata')
-    ebook_ids = json.loads(metadata.get('ebook_ids'))
-    user_id = metadata.get('user_id')
-    PSPFacade().payment_succeeded(int(user_id), ebook_ids)
+class WebhookHandler:
+    def __init__(self):
+        self.psp_facade = PSPFacade()
 
-    return {'status': 'ok'}
+@webhook_handler.route('/', methods=['POST'])
+def webhook():
+    handler = WebhookHandler()
+    webhook_data = handler.psp_facade.get_webhook_data(request)
+    return handler.psp_facade.payment_succeeded(webhook_data)
+
+
 
