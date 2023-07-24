@@ -59,3 +59,13 @@ def checkout():
         return redirect(url_for('controller.login'))  # TODO change later
 
     return render_template('checkout.html', total_price_cents=total_price_cents, ebook_ids=ebook_ids)
+
+
+@controller.route('/library')
+def library():
+    session['user_id'] = 1  # TODO
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect(url_for('controller.login')) # next= request.url
+    ebooks = facade.list_ebooks(user_id)
+    return render_template('library.html', ebooks=ebooks)
