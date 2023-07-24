@@ -1,15 +1,15 @@
 from abc import ABC, abstractmethod
 
 
-class IUserLibraryRepo(ABC):
+class IEbookRepo(ABC):
     @abstractmethod
-    def create_library(self, user_id):
+    def list_available_ebooks(self):
         raise NotImplementedError
 
     @abstractmethod
-    def list_ebooks(self, user_id):
+    def add_to_cart(self):
         raise NotImplementedError
 
     @abstractmethod
-    def add_to_library(self, user_id, ebook_id):
+    def remove_from_cart(self):
         raise NotImplementedError

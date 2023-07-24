@@ -1,12 +1,13 @@
-from flask import render_template
 from flask import Blueprint
-from flask import request
 from flask import redirect
-from flask import url_for
+from flask import render_template
+from flask import request
 from flask import session
-import sys
+from flask import url_for
+
 
 from ..controllers.facade import Facade
+from ..helpers.payment_info import PaymentInfo
 
 facade = Facade()
 
@@ -48,3 +49,32 @@ def register_post():
 
     return render_template('signup.html', error_message=signup_response.get('message'))
 
+
+@controller.route('/checkout', methods=['GET', 'POST'])
+def checkout():
+    total_price_cents = 1000  # TODO
+    ebook_ids = [1, 2, 3]
+
+    if request.method == 'POST':
+        form_data = request.form
+        payment_method = form_data['payment_method']
+        session['user_id'] = 1  # TODO
+        payment_info = PaymentInfo(user_id=session['user_id'], payment_method=payment_method,
+                                   total_price_cents=total_price_cents, ebook_ids=ebook_ids)
+        checkout_response = facade.checkout(payment_info)
+        if not checkout_response.get('success'):
+            return render_template('checkout.html', total_price_cents=total_price_cents, ebook_ids=ebook_ids,
+                                   error_message=checkout_response.get('message'))
+        return redirect(url_for('controller.login'))  # TODO change later
+
+    return render_template('checkout.html', total_price_cents=total_price_cents, ebook_ids=ebook_ids)
+
+
+@controller.route('/library')
+def library():
+    session['user_id'] = 1  # TODO
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect(url_for('controller.login')) # next= request.url
+    ebooks = facade.list_ebooks(user_id)
+    return render_template('library.html', ebooks=ebooks)
