@@ -1,3 +1,4 @@
+from .repositories import EbookRepoSqlLite
 from .repo_interface import IEbookRepo
 from .repositories import EbookRepoSqlLite
 
