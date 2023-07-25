@@ -8,12 +8,14 @@
                     Informações da compra
                 </div>
                 <b>Livros:</b>
+
                 <ul style="margin-top: 0">
-                    <li>livro1</li>
-                    <li>livro2</li>
-                    <li>livro3</li>
+                {% for ebook in ebooks %}
+                    <li>{{ ebook.title }} - R${{ ebook.price_cents // 100 }},00</li>
+                {% endfor %}
                 </ul>
-                <p><b>Preço total:</b> R$10,00</p>
+                <p><b>Preço total:</b> {{ total_price_parsed }}</p>
+
 
             </div>
             <div class="ui segment">

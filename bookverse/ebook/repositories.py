@@ -1,14 +1,10 @@
 from ..app import db
+from .models import Ebook
 
 from .repo_interface import IEbookRepo
 
 
 class EbookRepoSqlLite(IEbookRepo):
-    def list_available_ebooks(self):
-        raise NotImplementedError
-
-    def add_to_cart(self):
-        raise NotImplementedError
-
-    def remove_from_cart(self):
-        raise NotImplementedError
+    def list_available_ebooks(self, user_id):
+        ebooks = Ebook.query.all()
+        return ebooks

@@ -1,7 +1,7 @@
+from .models import Cart
 from .repo_interface import ICartRepo
 from ..app import db
-
-from .models import Cart
+from ..ebook.models import Ebook
 
 
 class CartRepoSqlLite(ICartRepo):
@@ -16,4 +16,19 @@ class CartRepoSqlLite(ICartRepo):
         if not cart:
             raise Exception('Cart not found')
         return cart.ebooks
-    
+
+    def add_to_cart(self, user_id, ebook_id):
+        cart = Cart.query.filter_by(user_id=user_id).first()
+        print("cart is", cart)
+        if not cart:
+            raise Exception('Cart not found')
+        # check if ebook is already on cart
+        if Cart.query.filter(Cart.ebooks.any(id=ebook_id)).first():
+            print("inside filter")
+            return cart
+        ebook = Ebook.query.filter_by(id=ebook_id).first()
+        cart.ebooks.append(ebook)
+        print("appended")
+        db.session.commit()
+        print("commited")
+        return cart

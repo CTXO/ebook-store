@@ -7,11 +7,5 @@ class EbookCrud:
     def __init__(self):
         self.repo: IEbookRepo = EbookRepoSqlLite()
 
-    def list_available_ebooks(self):
-        self.repo.list_available_ebooks()
-
-    def add_to_cart(self):
-        self.repo.add_to_cart()
-
-    def remove_from_cart(self):
-        self.repo.remove_from_cart()
+    def list_available_ebooks(self, user_id):
+        return self.repo.list_available_ebooks(user_id)
