@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block page %}
+    <style>
+        .ui.stretched.card {
+            min-height: 100%;
+        }
+        .ui.stretched.card img {
+            height: 25rem;
+        }
+    </style>
+    <div class="ui centered grid">
+        <div class="sixteen wide column">
+            <h2 class="ui header centered">
+                Minha Biblioteca
+            </h2>
+        </div>
+    </div>
+    <div class="ui stackable four column grid">
+        {% for ebook in ebooks %}
+            <div class="column">
+                <div class="ui stretched card">
+                    <div class="image">
+                        <img height="1px" src="{{ url_for('static', filename=ebook.cover_path) }}">
+                    </div>
+                    <div class="content">
+                        <a class="header">{{ ebook.title }}</a>
+                        <div class="meta">
+                            <span class="authors">{{ ebook.authors }}</span>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <a>
+                            <i class="book open icon"></i>
+                            {{ ebook.pages }} páginas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

@@ -5,9 +5,9 @@
         <div class="eight wide column">
             <div class="ui segment">
                 {{ success }}
-                <div class="ui form">
+                <form class="ui form" method="POST">
                     <div class="field">
-                        <label>Username</label>
+                        <label>Email</label>
                         <input type="text" name="email" placeholder="Email">
                     </div>
                     <div class="field">
@@ -16,8 +16,8 @@
                     </div>
 
                     <a href="/register" class="ui button">Criar minha conta</a>
-                    <button class="ui primary submit button">Login</button>
-                </div>
+                    <button class="ui primary submit button" type="submit">Login</button>
+                </form>
             </div>
 
         </div>

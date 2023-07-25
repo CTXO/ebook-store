@@ -1,6 +1,6 @@
-from .repo_interface import IUserRepo
 from ..app import db
 
+from .repo_interface import IUserRepo
 from .models import User
 
 
@@ -28,10 +28,10 @@ class UserRepoSqlLite(IUserRepo):
         return user
 
     def retrieve_by_email(self, email):
-        users = User.query.filter_by(email=email).all()
-        if not users:
+        user = User.query.filter_by(email=email).first()
+        if not user:
             raise Exception('User not found')
-        return users
+        return user
 
     def delete(self, user_id):
         user = User.query.filter_by(id=user_id).first()

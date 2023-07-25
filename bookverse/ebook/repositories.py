@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from .repo_interface import IEBookRepo
 from ..app import db
 
@@ -17,3 +18,19 @@ class EbookRepoSqlLite(IEBookRepo):
     def add_to_library(self, user_id, title):
         return super().add_to_library(user_id, title)
     
+=======
+from ..app import db
+
+from .repo_interface import IEbookRepo
+
+
+class EbookRepoSqlLite(IEbookRepo):
+    def list_available_ebooks(self):
+        raise NotImplementedError
+
+    def add_to_cart(self):
+        raise NotImplementedError
+
+    def remove_from_cart(self):
+        raise NotImplementedError
+>>>>>>> upstream/master
