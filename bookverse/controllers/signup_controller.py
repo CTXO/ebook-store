@@ -1,5 +1,5 @@
-import random
 
+from ..helpers.user_info import UserInfo
 from .signup_handlers import HandlerRequest
 from .signup_handlers import HandlerResponse
 from .signup_handlers import SignupHandler
@@ -17,7 +17,8 @@ class SignupController:
         self.signup_handler = SignupHandler()
 
     def signup(self, full_name, email, password, password2) -> HandlerResponse:
-        handler_request = HandlerRequest(name=full_name, email=email, password=password, password2=password2,
-                                         user_crud=self.user_crud, cart_crud=self.cart_crud, library_crud=self.library_crud)
+        user_info = UserInfo(name=full_name, email=email, password=password, password2=password2)
+        handler_request = HandlerRequest(user_info=user_info, user_crud=self.user_crud, cart_crud=self.cart_crud,
+                                         library_crud=self.library_crud)
         signup_response = self.signup_handler.handle(handler_request)
         return signup_response
