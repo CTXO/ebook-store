@@ -29,18 +29,14 @@ class HandlerResponse(TypedDict):
 
 
 class IHandler(ABC):
-    @property
-    @abstractmethod
-    def next_handler(self):
-        raise NotImplementedError
-
     @abstractmethod
     def handle(self, request: HandlerRequest) -> HandlerResponse:
         raise NotImplementedError
 
 
 class LibraryCreationHandler(IHandler):
-    next_handler = None
+    def __init__(self, next_handler):
+        self.next_handler = next_handler
 
     def handle(self, request: HandlerRequest) -> HandlerResponse:
         request.library_crud.create_library(request.user.id)
@@ -48,7 +44,8 @@ class LibraryCreationHandler(IHandler):
 
 
 class CartCreationHandler(IHandler):
-    next_handler = LibraryCreationHandler()
+    def __init__(self, next_handler):
+        self.next_handler = next_handler
 
     def handle(self, request: HandlerRequest) -> HandlerResponse:
         request.cart_crud.create_cart(request.user.id)
@@ -56,7 +53,8 @@ class CartCreationHandler(IHandler):
 
 
 class UserCreationHandler(IHandler):
-    next_handler = CartCreationHandler()
+    def __init__(self, next_handler):
+        self.next_handler = next_handler
 
     def handle(self, request: HandlerRequest) -> HandlerResponse:
         name = request.user_info.name
@@ -69,7 +67,8 @@ class UserCreationHandler(IHandler):
 
 
 class PasswordValidationHandler(IHandler):
-    next_handler = UserCreationHandler()
+    def __init__(self, next_handler):
+        self.next_handler = next_handler
 
     def handle(self, request: HandlerRequest) -> HandlerResponse:
         password = request.user_info.password
@@ -84,7 +83,8 @@ class PasswordValidationHandler(IHandler):
 
 
 class EmailValidationHandler(IHandler):
-    next_handler = PasswordValidationHandler()
+    def __init__(self, next_handler):
+        self.next_handler = next_handler
 
     def handle(self, request: HandlerRequest) -> HandlerResponse:
         email = request.user_info.email
@@ -95,7 +95,8 @@ class EmailValidationHandler(IHandler):
 
 
 class SignupHandler(IHandler):
-    next_handler = EmailValidationHandler()
+    def __init__(self, next_handler):
+        self.next_handler = next_handler
 
     def handle(self, request: HandlerRequest) -> HandlerResponse:
         return self.next_handler.handle(request)
