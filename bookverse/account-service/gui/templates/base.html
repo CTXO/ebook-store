@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BookVerse{% endblock %}</title>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+</head>
+
+<style></style>
+<body>
+{% block body %}
+    {% block navbar %}
+        <div class="ui large menu">
+            <div class="item"><b>BookVerse </b><i class="book icon"></i></div>
+            <div class="right menu">
+                {% if session.userid %}
+                <a class="item" href="{{ url_for('controller.logout') }}">Logout</a>
+                <a class="item" href="{{ url_for('controller.ebooks') }}">Lista de e-books</a>
+                <a class="item" href="{{ url_for('controller.checkout') }}">Checkout</a>
+                <a class="item" href="{{ url_for('controller.library') }}">Biblioteca</a>
+                {% else %}
+                    <a class="item" href="{{ url_for('controller.login') }}">Login</a>
+{#                    <a class="item" href="{{ url_for('controller.register_get') }}">Cadastro</a>#}
+                {% endif %}
+
+
+            </div>
+        </div>
+    {% endblock %}
+    <div id="main-container" class="ui container">
+        {% block content %}
+            <div class="ui stackable grid" id="page-grid">
+                <div class="sixteen wide column">
+
+                    {% block page %}
+                    {% endblock %}
+
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+    {% block footer %}
+
+        <div id="footer">
+            <div class="ui divider footer-divider"></div>
+            <div class="ui container">
+                <div class="ui grid footer-grid">
+                    <div class="eight wide column">
+                        <b>BookVerse</b>
+                        <p class="footer-item">Powered by Flask</p>
+                        <p class="footer-item">Copyright 2023 BookVerse</p>
+
+                    </div>
+                    <div class="eight wide column right aligned column-flex">
+                        <a href="/#" class="footer-item">Marketplace</a>
+                        <a href="/#" class="footer-item">Fale Conosco</a>
+                        <a href="/#" class="footer-item">Anuncie seu e-book</a>
+                        <a href="/#" class="footer-item">Termos de Uso</a>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    {% endblock %}
+{% endblock %}
+</body>
+{% block script %}
+{% endblock %}
+</html>
