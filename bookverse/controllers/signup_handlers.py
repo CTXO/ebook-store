@@ -4,7 +4,7 @@ from typing import Optional
 from typing import TypedDict
 from werkzeug.security import generate_password_hash
 
-from ..helpers.user_info import UserInfo
+from helpers.user_info import UserInfo
 from ..user.models import User
 from ..cart.cart_crud import CartCrud
 from ..library.library_crud import LibraryCrud

@@ -22,10 +22,10 @@
             <div class="item"><b>BookVerse </b><i class="book icon"></i></div>
             <div class="right menu">
                 {% if session.userid %}
-                <a class="item" href="{{ url_for('controller.logout') }}">Logout</a>
+{#                <a class="item" href="{{ url_for('controller.logout') }}">Logout</a>#}
                 <a class="item" href="{{ url_for('controller.ebooks') }}">Lista de e-books</a>
-                <a class="item" href="{{ url_for('controller.checkout') }}">Checkout</a>
-                <a class="item" href="{{ url_for('controller.library') }}">Biblioteca</a>
+{#                <a class="item" href="{{ url_for('controller.checkout') }}">Checkout</a>#}
+{#                <a class="item" href="{{ url_for('controller.library') }}">Biblioteca</a>#}
                 {% else %}
                     <a class="item" href="{{ url_for('controller.login') }}">Login</a>
 {#                    <a class="item" href="{{ url_for('controller.register_get') }}">Cadastro</a>#}

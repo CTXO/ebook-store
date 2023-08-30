@@ -20,6 +20,9 @@ def login():
 
 @controller.route('/ebooks')
 def ebooks():
+    userid = request.args.get('userid')
+    if userid:
+        session['userid'] = userid
     ebooks_query = facade.list_available_ebooks(session.get('user_id'))
     return render_template('ebooks.html', ebooks=ebooks_query)
 
@@ -36,6 +39,7 @@ def checkout():
     total_price_parsed = f"R${total_price_cents / 100:.2f}".replace('.', ',')
 
     return render_template('checkout.html', total_price_parsed=total_price_parsed, ebooks=ebooks_qs)
+
 
 @controller.post('/add-cart')
 def add_cart():

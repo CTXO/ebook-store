@@ -89,7 +89,6 @@ def ebooks():
 @controller.route('/checkout', methods=['GET', 'POST'])
 @requires_login
 def checkout():
-
     user_id = session['userid']
     ebooks_qs = facade.list_cart_ebooks(user_id)
 

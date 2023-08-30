@@ -9,7 +9,7 @@ from .signup_handlers import SignupHandler
 from ..cart.cart_crud import CartCrud
 from ..library.library_crud import LibraryCrud
 from ..user.user_crud import UserCrud
-from ..helpers.user_info import UserInfo
+from helpers.user_info import UserInfo
 
 
 class SignupController:

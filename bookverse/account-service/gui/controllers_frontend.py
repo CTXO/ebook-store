@@ -1,5 +1,6 @@
 import json
 
+import os
 from flask import Blueprint
 from flask import redirect
 from flask import render_template
@@ -13,6 +14,10 @@ from ..controllers.facade import Facade
 facade = Facade()
 
 controller = Blueprint('controller', __name__)
+
+
+def get_service_url(service, endpoint, user_id=''):
+    return f'http://172.20.0.5:5000/route/{service}{endpoint}?userid={user_id}'
 
 
 def requires_login(func):
@@ -32,7 +37,8 @@ def home():
 @controller.get('/login')
 def login():
     if session.get('userid'):
-        return redirect(url_for('controller.ebooks'))
+        ebook_url = get_service_url('cart_service', '/ebooks', session['userid'])
+        return redirect(ebook_url)
     return render_template('login.html')
 
 
@@ -54,7 +60,10 @@ def login_post():
         session['userid'] = login_response.get('user').id
         if next_url:
             return redirect(next_url)
-        return redirect(url_for('controller.login'))
+
+        ebook_url = get_service_url('cart_service', '/ebooks', session['userid'])
+
+        return redirect(ebook_url)
     return render_template('login.html', error_message=login_response.get('message'))
 
 
@@ -76,3 +85,5 @@ def register_post():
         return redirect(url_for('controller.login'))
 
     return render_template('signup.html', error_message=signup_response.get('message'))
+
+

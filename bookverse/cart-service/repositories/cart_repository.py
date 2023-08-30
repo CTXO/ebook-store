@@ -21,7 +21,7 @@ class CartRepoSqlLite(ICartRepo):
         cart = Cart.query.filter_by(user_id=user_id).first()
         print("cart is", cart)
         if not cart:
-            raise Exception('Cart not found')
+            cart = self.create_cart(user_id)
         # check if ebook is already on cart
         if Cart.query.filter(Cart.ebooks.any(id=ebook_id) & Cart.user_id == user_id).first():
             return cart
