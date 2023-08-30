@@ -1,0 +1,31 @@
+
+.footer-item {
+    color: #5C6576;
+}
+
+.column-flex {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.ui.menu {
+    margin-bottom: 3rem;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#footer {
+    margin-top: auto;
+}
+
+.ui.footer-divider {
+    margin-bottom: 0;
+}
+
+.ui.grid.footer-grid {
+    margin: 0;
+}
